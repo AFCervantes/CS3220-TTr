@@ -4,6 +4,8 @@
 [albertcervantes.com/cs3220](http://albertcervantes.com/cs3220)
 
 ## Video Lectures
+- [2018-08-21](http://albertcervantes.com/cs3220/lectures/cs3220-2018-08-21-ttr.mp4)
+- [2018-08-23](http://albertcervantes.com/cs3220/lectures/cs3220-2018-08-23-ttr.mp4)
 - [2018-08-28](http://albertcervantes.com/cs3220/lectures/cs3220-2018-08-28-ttr.mp4)
 - 2018-08-30
 - [2018-09-04](http://albertcervantes.com/cs3220/lectures/cs3220-2018-09-04-ttr.mp4)
