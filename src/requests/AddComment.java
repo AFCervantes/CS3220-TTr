@@ -32,11 +32,28 @@ public class AddComment extends HttpServlet {
         out.println("<body>");
         out.println("<div class=\"container\">");
         
+        
+        String name = request.getParameter("name");
+        String message = request.getParameter("message");
+        
+        if (name == null)
+        	name = "";
+        
+        message = message == null ? "" : message;
+        
         out.println("<h1>Add Comment</h1>");
         out.println("<form action=\"AddComment\" method=\"post\">");
-        out.println(" 	Name: <input type=\"text\" name=\"name\"> <br>");
+        out.println(" 	Name: <input type=\"text\" name=\"name\" value=\"" + name + "\"> <br>");
+        
+        if (request.getAttribute("nameError") != null)
+        	out.println("   <p class=\"text-danger\">Please enter a name</p>");
+        
         out.println(" 	Message: <br>");
-        out.println(" 	<textarea name=\"message\"></textarea><br>");
+        out.println(" 	<textarea name=\"message\">" + message + "</textarea><br>");
+        
+        if (request.getAttribute("messageError") != null)
+        	out.println("   <p class=\"text-danger\">Please enter a message</p>");
+        
         out.println(" 	<input type=\"submit\" name=\"submitBtn\" value=\"Add Comment\">");
         out.println("</form>");
        
@@ -51,14 +68,33 @@ public class AddComment extends HttpServlet {
 		String name = request.getParameter("name");
 		String message = request.getParameter("message");
 		
-		// Get a reference to the guest book
-		ArrayList<GuestBookEntry> guestbookEntries = (ArrayList<GuestBookEntry>) getServletContext().getAttribute("guestbookEntries");
+		boolean isValidName = name != null && name.trim().length() > 0;
+		boolean isValidMessage = message != null && message.trim().length() > 0;
 		
-		// Add a new entry
-		guestbookEntries.add(new GuestBookEntry(name, message));
+		if (isValidName && isValidMessage) {
+			// Get a reference to the guest book
+			ArrayList<GuestBookEntry> guestbookEntries = (ArrayList<GuestBookEntry>) getServletContext().getAttribute("guestbookEntries");
+			
+			// Add a new entry
+			guestbookEntries.add(new GuestBookEntry(name, message));
+			
+			// Redirect the User back to the main page
+			response.sendRedirect("GuestBook");
+		}
+		else {
+			
+			if (!isValidName)
+				request.setAttribute("nameError", true);
+			
+			if (!isValidMessage)
+				request.setAttribute("messageError", true);
+			
+			
+			doGet(request, response);
+			return;
+			
+		}
 		
-		// Redirect the User back to the main page
-		response.sendRedirect("GuestBook");
 		
 	}
 

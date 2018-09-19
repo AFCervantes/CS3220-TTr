@@ -30,13 +30,19 @@ public class SimpleAdderServlet extends HttpServlet {
         out.println("<body>");
         out.println("<div class=\"container\">");
         
+        out.println("<h1>Simple Adder</h1>");
+        
+        
         String strNum1 = request.getParameter("num1");
         String strNum2 = request.getParameter("num2");
         
-        int sum = Integer.parseInt( strNum1 ) + Integer.parseInt( strNum2 );
+        try {
+	        int sum = Integer.parseInt( strNum1 ) + Integer.parseInt( strNum2 );
+	        out.println(strNum1 + " + " + strNum2 + " = " + sum);
+        } catch (Exception e) {
         
-        out.println("<h1>Simple Adder</h1>");
-        out.println(strNum1 + " + " + strNum2 + " = " + sum);
+        	out.println("<p class=\"text-danger\">Please enter integral values.</p>");
+        }
         
         out.println("</div>");
         out.println("</body>");        

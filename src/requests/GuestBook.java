@@ -51,6 +51,19 @@ public class GuestBook extends HttpServlet {
         out.println("<div class=\"container\">");
         
         out.println("<h1>Guest Book</h1>");
+        
+        out.println("<form action=\"GuestBook\" method=\"get\">");
+        out.println("  <input type=\"text\" name=\"searchQuery\">");
+        out.println("  <select name=\"searchType\">");
+        out.println("    <option>ID</option>");
+        out.println("    <option>Name</option>");
+        out.println("    <option>Message</option>");
+        out.println("  </select>");
+        out.println("  <input type=\"submit\" name=\"searchBtn\" value=\"Search\">");
+        out.println("</form>");
+        
+        out.println("<hr>");
+        
         out.println("<table class=\"table table-bordered table-striped table-hover\">");
         out.println("  <tr>");
         out.println("    <th>Name</th>");
@@ -61,6 +74,38 @@ public class GuestBook extends HttpServlet {
         // Get a reference to the guestbook
         ArrayList<GuestBookEntry> guestbookEntries 
         	= (ArrayList<GuestBookEntry>) getServletContext().getAttribute("guestbookEntries");
+        
+        // Was a search submitted?
+        if (request.getParameter("searchBtn") != null) {
+        	String searchType = request.getParameter("searchType");
+        	
+        	// If we are searching by ID, execute this code block
+        	if (searchType.equals("ID")) {
+        		// If searching by ID, the 'searchQuery' parameter should contain an integer
+        		// So, we parse the integer out of the string
+        		int id = Integer.parseInt(request.getParameter("searchQuery"));
+        		
+        		// Create a new array list to store our search results
+        		ArrayList<GuestBookEntry> searchResults = new ArrayList<GuestBookEntry>();
+        		
+        		// Iterate over EVERY guest book entry, and those that match the search criteria
+        		// will be added to our search results array list
+        		for (GuestBookEntry entry : guestbookEntries) {
+        			if (entry.getId() == id) {
+        				searchResults.add(entry);
+        				break;
+        			}
+        		}
+        		
+        		// When done searching, the search results array list should contain
+        		// all matches.
+        		
+        		// To display matches, we simply re-assign the 'guestbookEntries' reference variable
+        		// to the new search results array list.
+        		guestbookEntries = searchResults;
+        	}
+        }
+        
         
         for (GuestBookEntry entry : guestbookEntries) {
         	out.println("  <tr>");
