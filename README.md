@@ -14,3 +14,4 @@
 - [2018-09-13](http://albertcervantes.com/cs3220/lectures/cs3220-2018-09-13-ttr.mp4)
 - [2018-09-18](http://albertcervantes.com/cs3220/lectures/cs3220-2018-09-18-ttr.mp4)
 - [2018-09-25](http://albertcervantes.com/cs3220/lectures/cs3220-2018-09-25-ttr.mp4)
+- [2018-09-27](http://albertcervantes.com/cs3220/lectures/cs3220-2018-09-27-ttr.mp4)
