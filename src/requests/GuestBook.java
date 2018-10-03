@@ -17,121 +17,116 @@ import models.GuestBookEntry;
 @WebServlet(urlPatterns= {"/requests/GuestBook"}, loadOnStartup=1)
 public class GuestBook extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+   
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		
-		// Create a local array list of guest book entries
+		// Created a local, empty array list of type Guest Book Entry
 		ArrayList<GuestBookEntry> guestbookEntries = new ArrayList<GuestBookEntry>();
 		
-		// Pre-populate the guest book with some entries
+		// Pre-populate my guest book with some entries
 		guestbookEntries.add( new GuestBookEntry("John Doe", "Hello, World!"));
 		guestbookEntries.add( new GuestBookEntry("Mary Jane", "Hi!"));
-		guestbookEntries.add( new GuestBookEntry("Joe Boxer", "Howdy."));
+		guestbookEntries.add( new GuestBookEntry("Joe Boxer", "Howdy!"));
 		
-		// Store the guest book in the Application Scope (ServletContext)
+		// Add the array list to the application scope (Servlet Context)
 		getServletContext().setAttribute("guestbookEntries", guestbookEntries);
 		
 	}
-
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		response.setContentType("text/html");
-        
-        PrintWriter out = response.getWriter();
-        out.println("<!DOCTYPE html>");
-        out.println("<html lang=\"en\">");
-        
-        out.println("<head>");
-        out.println("    <meta charset=\"UTF-8\">");
-        out.println("    <title>Guest Book</title>");
-        out.println("     <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css\" integrity=\"sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO\" crossorigin=\"anonymous\">");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<div class=\"container\">");
-        
-        out.println("<h1>Guest Book</h1>");
-        
-        out.println("<form action=\"GuestBook\" method=\"get\">");
-        out.println("  <input type=\"text\" name=\"searchQuery\">");
-        out.println("  <select name=\"searchType\">");
-        out.println("    <option>ID</option>");
-        out.println("    <option>Name</option>");
-        out.println("    <option>Message</option>");
-        out.println("  </select>");
-        out.println("  <input type=\"submit\" name=\"searchBtn\" value=\"Search\">");
-        out.println("</form>");
-        
-        out.println("<hr>");
-        
-        out.println("<table class=\"table table-bordered table-striped table-hover\">");
-        out.println("  <tr>");
-        out.println("    <th>Name</th>");
-        out.println("    <th>Message</th>");
-        out.println("    <th>Actions</th>");
-        out.println("  </tr>");
-        
-        // Get a reference to the guestbook
-        ArrayList<GuestBookEntry> guestbookEntries 
-        	= (ArrayList<GuestBookEntry>) getServletContext().getAttribute("guestbookEntries");
-        
-        // Was a search submitted?
-        if (request.getParameter("searchBtn") != null) {
-        	String searchType = request.getParameter("searchType");
-        	
-        	// If we are searching by ID, execute this code block
-        	if (searchType.equals("ID")) {
-        		// If searching by ID, the 'searchQuery' parameter should contain an integer
-        		// So, we parse the integer out of the string
-        		int id = Integer.parseInt(request.getParameter("searchQuery"));
-        		
-        		// Create a new array list to store our search results
-        		ArrayList<GuestBookEntry> searchResults = new ArrayList<GuestBookEntry>();
-        		
-        		// Iterate over EVERY guest book entry, and those that match the search criteria
-        		// will be added to our search results array list
-        		for (GuestBookEntry entry : guestbookEntries) {
-        			if (entry.getId() == id) {
-        				searchResults.add(entry);
-        				break;
-        			}
-        		}
-        		
-        		// When done searching, the search results array list should contain
-        		// all matches.
-        		
-        		// To display matches, we simply re-assign the 'guestbookEntries' reference variable
-        		// to the new search results array list.
-        		guestbookEntries = searchResults;
-        	}
-        }
-        
-        
-        for (GuestBookEntry entry : guestbookEntries) {
-        	out.println("  <tr>");
-            out.println("    <td>" + entry.getName() + "</td>");
-            out.println("    <td>" + entry.getMessage() + "</td>");
-            //out.println("    <td> Edit | Delete </td>");
-            out.println("    <td>");
-            out.println(" <a href=\"EditComment?id=" + entry.getId() + "\">Edit</a> ");
-            out.println(" | ");
-            out.println(" <a href=\"DeleteComment?id=" + entry.getId() + "\">Delete</a>");
-            out.println("    </td>");
-            
-            out.println("  </tr>");
 
-        }
-        
-        out.println("</table>");
-        
-        out.println("<a class=\"btn btn-primary\" href=\"AddComment\">Add Comment</a>");
-        
-        out.println("</div>");
-        out.println("</body>");        
-        out.println("</html>");
+		// Get the array list of guest book entries from the application scope
+		ArrayList<GuestBookEntry> guestbookEntries = (ArrayList<GuestBookEntry>) getServletContext().getAttribute("guestbookEntries");
+				
+		
+		// Check to see if the form was submitted
+		if (request.getParameter("searchBtn") != null) {
+			String searchQuery = request.getParameter("searchQuery");
+			String searchType = request.getParameter("searchType");
+			
+			if (searchType.equals("ID")) {
+				int id = Integer.parseInt(searchQuery);
+				
+				ArrayList<GuestBookEntry> searchResults = new ArrayList<GuestBookEntry>();
+				for(GuestBookEntry entry : guestbookEntries) {
+					if (entry.getId() == id)
+						searchResults.add(entry);
+				}
+				
+				guestbookEntries = searchResults;
+			}
+			
+		}
+		
+		// Set my content type
+		response.setContentType("text/html");
+		
+		// Get a reference to the Print Writer
+		PrintWriter out = response.getWriter();
+		
+		// Generate our content
+		out.println("<!DOCTYPE html>");
+		out.println("<html lang=\"en\">");
+		out.println("<head>");
+		out.println("    <meta charset=\"UTF-8\">");
+		out.println("    <title>Guest Book</title>");
+		out.println("    <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css\" integrity=\"sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO\" crossorigin=\"anonymous\">");
+		out.println("</head>");
+		out.println("<body>");
+		out.println("<div class=\"container\">");
+		
+		out.println("<h1>Guest Book</h1>");
+		
+		out.println("<form action=\"GuestBook\" method=\"get\">");
+		out.println("  <input type=\"text\" name=\"searchQuery\">");
+		out.println("  <select name=\"searchType\">");
+		out.println("    <option>ID</option>");
+		out.println("    <option>Name</option>");
+		out.println("    <option>Message</option>");
+		out.println("  </select>");
+		out.println("  <input type=\"submit\" name=\"searchBtn\" value=\"Search\">");
+		out.println("</form>");
+		
+		// Display a table of all guest book entries
+		out.println("<table class=\"table table-bordered table-striped table-hover\">");
+		out.println("  <tr>");
+		out.println("    <th>Name</th>");
+		out.println("    <th>Message</th>");
+		out.println("    <th>Actions</th>");
+		out.println("  </tr>");
+		
+		
+		// Iterate over all guest book entries, and display one row per entry in my table
+		for( GuestBookEntry entry : guestbookEntries ) {
+			out.println("<tr>");
+			out.println("  <td>" + entry.getName() + "</td>");
+			out.println("  <td>" + entry.getMessage() + "</td>");
+			out.println("  <td>");
+			out.println("       <a href=\"EditComment?id=" + entry.getId() + "\">Edit</a>");
+			out.println("       | ");
+			out.println("       <a href=\"DeleteComment?id=" + entry.getId() + "\">Delete</a>");
+			out.println("  </td>");
+			out.println("</tr>");
+
+		}
+		
+		out.println("</table>");
+		
+		out.println("<a class=\"btn btn-primary\" href=\"AddComment\">Add a Comment</a>");
+		
+		out.println("<a class=\"btn btn-info\" href=\"../cookies/AddCommentWithCookies\">Add a Comment (with Cookies)</a>");
+		
+		
+		
+		out.println("</div>");
+		out.println("</body>");
+		out.println("</html>");		
 	}
 
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
 		doGet(request, response);
 	}
 

@@ -38,6 +38,7 @@ public class Upload extends HttpServlet {
             .getServletContext();
         File repository = (File) servletContext
             .getAttribute( "javax.servlet.context.tempdir" );
+        
         factory.setRepository( repository );
 
         // Create a new file upload handler
@@ -45,6 +46,7 @@ public class Upload extends HttpServlet {
 
         // Count how many files are uploaded
         int count = 0;
+        
         // The directory we want to save the uploaded files to.
         String fileDir = getServletContext().getRealPath( "/WEB-INF/uploads" );
 
