@@ -54,12 +54,10 @@ public class AddCommentWithCookies extends HttpServlet {
 		
 		String name = getName(request);
 		
-		if (name == null) {
+		if (name == null)
 			out.println("	Name: <input type=\"text\" name=\"name\"> <br>");
-		}
-		else {
+		else
 			out.println("<strong>" + name + "</strong> <br>");
-		}
 		
 		out.println("	Message: <br>");		
 		out.println("	<textarea name=\"message\"></textarea> <br>");			
