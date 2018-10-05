@@ -54,6 +54,7 @@ public class Upload extends HttpServlet {
         try
         {
             List<FileItem> items = upload.parseRequest( request );
+            
             for( FileItem item : items )
             {
                 // If the item is not a form field - meaning it's an uploaded
@@ -65,10 +66,16 @@ public class Upload extends HttpServlet {
                     // want the file name part, which is why we first create a
                     // File object, then use File.getName() to get the file
                     // name.
+                	// /var/usr/some/temp/dir/some-file.jpg
+                	// /user/albert/3220/WEB-INF/uploads   some-file.jpg
+                	
                     String fileName = (new File( item.getName() )).getName();
                     File file = new File( fileDir, fileName );
                     item.write( file );
                     ++count;
+                    
+                    // Add the photo to a collection
+                    // Get the content type from the item:  item.getContentType()
                 }
             }
 

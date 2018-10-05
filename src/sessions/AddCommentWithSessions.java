@@ -1,4 +1,4 @@
-package cookies;
+package sessions;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,25 +10,14 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import models.GuestBookEntry;
 
-@WebServlet("/cookies/AddCommentWithCookies")
-public class AddCommentWithCookies extends HttpServlet {
+@WebServlet("/sessions/AddCommentWithSessions")
+public class AddCommentWithSessions extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	private String getName( HttpServletRequest request )
-    {
-        Cookie[] cookies = request.getCookies();
-        if( cookies != null )
-            for( Cookie cookie : cookies )
-                if( cookie.getName().equals( "name" ) )
-                    return cookie.getValue();
 
-        return null;
-    }
-
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		
@@ -49,11 +38,16 @@ public class AddCommentWithCookies extends HttpServlet {
 		out.println("<body>");
 		out.println("<div class=\"container\">");
 		
-		out.println("<h1>Add Comment <small>with Cookies</small></h1>");
-		out.println("<form action=\"AddCommentWithCookies\" method=\"post\">");		
+		out.println("<h1>Add Comment <small>with Sessions</small></h1>");
+		out.println("<form action=\"AddCommentWithSessions\" method=\"post\">");		
 		
-		String name = getName(request);
+		// Instead of getting the name from the cookie, let's check to see if the name
+		// exists in the session
+		HttpSession session = request.getSession();
+		String name = (String) session.getAttribute("name");
 		
+		// If the name didn't exist in the session, then the value will be null.
+		// So, we'll display the input form element. Otherwise, we just display the User's name
 		if (name == null)
 			out.println("	Name: <input type=\"text\" name=\"name\"> <br>");
 		else
@@ -66,9 +60,8 @@ public class AddCommentWithCookies extends HttpServlet {
 				
 		out.println("</div>");
 		out.println("</body>");
-		out.println("</html>");		
+		out.println("</html>");	
 	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		if (request.getParameter("submitBtn") != null) {
@@ -78,11 +71,10 @@ public class AddCommentWithCookies extends HttpServlet {
 			String message = request.getParameter("message");
 			
 			if (name == null)
-				name = getName(request);
+				name = (String) request.getSession().getAttribute("name");
 			
 			boolean isValidName = name != null && name.trim().length() > 0;
 			boolean isValidMessage = message != null && message.trim().length() > 0;
-			
 			
 			// Add new entry to the guest book
 			if (isValidName && isValidMessage) {
@@ -92,13 +84,8 @@ public class AddCommentWithCookies extends HttpServlet {
 				// Create a new entry and add it to the guestbook
 				guestbookEntries.add(new GuestBookEntry(name, message));
 				
-				// Create a cookie named "name" and store the User's name
-	            Cookie cookie = new Cookie( "name", name );
-	            
-	            // Expose the cookie to any directory on our server
-	            //cookie.setPath("/");
-	            
-	            response.addCookie( cookie );
+				// Add the 'name' attribute to the session
+				request.getSession().setAttribute("name", name);
 				
 			} 
 			else {
@@ -113,8 +100,6 @@ public class AddCommentWithCookies extends HttpServlet {
 				doGet(request, response);
 				return;
 			}
-			
-			
 			
 		}
 		
