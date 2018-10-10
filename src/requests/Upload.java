@@ -74,6 +74,7 @@ public class Upload extends HttpServlet {
                     item.write( file );
                     ++count;
                     
+                    
                     // Add the photo to a collection
                     // Get the content type from the item:  item.getContentType()
                 }
