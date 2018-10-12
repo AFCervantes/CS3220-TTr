@@ -1,4 +1,4 @@
-package sessions;
+package practice.todos;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,36 +9,35 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.Student;
-
-
-@WebServlet("/students/ViewGrades")
-public class ViewGrades extends HttpServlet {
+/**
+ * Servlet implementation class ToggleDone
+ */
+@WebServlet("/practice/toggleDone")
+public class ToggleDone extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		// Get the ID of the student who's grades we want to view
+		
 		int id = Integer.parseInt(request.getParameter("id"));
 		
-		// Find the student who matches the id
-
-		// Get the list of Students
-		ArrayList<Student> students = (ArrayList<Student>) getServletContext().getAttribute("students");
+//		ArrayList<Todo> todos = (ArrayList<Todo>) getServletContext().getAttribute("todos");
+		ArrayList<Todo> todos = (ArrayList<Todo>) request.getSession().getAttribute("todos");
 		
-		// Find the student matching the id entered
-		for (Student student : students) {
-			if (student.getId() == id) {
-				request.getSession().setAttribute("currentStudent", student);
-				response.sendRedirect("Grades");
-				return;
+		for (Todo todo : todos)
+			if (todo.getId() == id) {
+				todo.setDone( !todo.isDone() );
+				break;
 			}
-		}
 		
-		response.sendRedirect("../ClassRoster.html");;
+		response.sendRedirect("todo");
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

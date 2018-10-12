@@ -69,14 +69,24 @@ public class Upload extends HttpServlet {
                 	// /var/usr/some/temp/dir/some-file.jpg
                 	// /user/albert/3220/WEB-INF/uploads   some-file.jpg
                 	
+                	//item.getContentType();
+                	
                     String fileName = (new File( item.getName() )).getName();
                     File file = new File( fileDir, fileName );
                     item.write( file );
                     ++count;
                     
+                    //new Photo(filename, path, contentType)
+                    
                     
                     // Add the photo to a collection
                     // Get the content type from the item:  item.getContentType()
+                }
+                else {
+                	String parameterName = item.getFieldName();
+                	if (parameterName.equals("id")) {
+                		int id = Integer.parseInt( item.toString() );
+                	}
                 }
             }
 
