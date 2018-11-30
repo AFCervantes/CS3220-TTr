@@ -26,11 +26,11 @@
 		<c:forEach items="${guestbookEntries}" var="entry" varStatus="status">
 			
 			<c:if test="${status.index % 2 == 0 }">
-				<tr style="background-color: dodgerblue;">
+				<tr style="background-color: lightgray;">
 			</c:if>
 			
 			<c:if test="${status.index % 2 != 0 }">
-				<tr style="background-color: purple;">
+				<tr style="background-color: white;">
 			</c:if>
 			
 			  <td>${status.index+1}</td>

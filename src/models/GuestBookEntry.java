@@ -15,6 +15,13 @@ public class GuestBookEntry {
 		this.id = count++;
 		this.date = new Date();
 	}
+	public GuestBookEntry(int id, String name, String message) {
+		super();
+		this.name = name;
+		this.message = message;
+		this.id = id;
+		this.date = new Date();
+	}
 	
 	public GuestBookEntry(String name, String message) {
 		super();
