@@ -6,7 +6,7 @@
 
     <display-name>CS3220 Custom Tag Examples</display-name>
     <tlib-version>1.0</tlib-version>
-    <short-name>cs320</short-name>
+    <short-name>cs3220</short-name>
     <uri>http://cs3.calstatela.edu/cs3220stu120/examples</uri>
 
     <tag>

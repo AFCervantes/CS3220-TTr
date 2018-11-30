@@ -28,7 +28,7 @@ public class AddTag extends SimpleTagSupport {
     @Override
     public void doTag() throws JspException, IOException
     {
-        JspWriter out = getJspContext().getOut();
+        JspWriter out = this.getJspContext().getOut();
         out.print( op1 + op2 );
     }
 

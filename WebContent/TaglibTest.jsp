@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="cs320" uri="http://cs.calstatelae.edu/cs320stu31/examples" %>
+    
+<%@ taglib prefix="cs3220" uri="http://cs3.calstatela.edu/cs3220stu120/examples" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -11,23 +13,35 @@
 <body>
 
 <p>This is the result of the AddTag:
-<cs320:add op1="10" op2="20" />
+	<cs3220:add op1="10" op2="20" />
 </p>
 
-<p>This is the requestInfo tag:
-<cs320:requestInfo type="method" />, <cs320:requestInfo type="client" />.
+
+
+<p>
+	This is the requestInfo tag:
+
+	<cs3220:requestInfo type="method" />, 
+	<cs3220:requestInfo type="client" />.
+
 </p>
 
-<p>This is the cap tag:
-<cs320:cap>${param.text}</cs320:cap>.
+
+<p>
+	This is the cap tag:
+	<cs3220:cap> <cs3220:requestInfo type="uri" /> </cs3220:cap>.
 </p>
 
-<p>This is the tag file:
-<cs320:greeting name="Joe">Hello</cs320:greeting>
+
+<p>
+	This is the tag file:
+	<cs3220:greeting name="Albert">Hi</cs3220:greeting>
 </p>
 
-<p>This is the EL function:
-${cs320:leetTalk('fear my mad programming skills')}.
+
+<p>
+	This is the EL function:
+	${cs3220:leetTalk('fear my mad programming skills')}.
 </p>
 
 </body>
