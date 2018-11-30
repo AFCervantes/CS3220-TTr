@@ -24,3 +24,9 @@
 - [2018-10-30](http://albertcervantes.com/cs3220/lectures/cs3220-2018-10-30-ttr.mp4) Expression Language (EL)
 - [2018-11-06](http://albertcervantes.com/cs3220/lectures/cs3220-2018-11-06-ttr.mp4) Introduction to JSTL
 - [2018-11-08](http://albertcervantes.com/cs3220/lectures/cs3220-2018-11-08-ttr.mp4) Introduction to Model-View-Controller (MVC)
+- [2018-11-13](http://albertcervantes.com/cs3220/lectures/cs3220-2018-11-13-ttr.mp4) Introduction to Databases
+- [2018-11-15](http://albertcervantes.com/cs3220/lectures/cs3220-2018-11-15-ttr.mp4) Introduction to JDBC
+- 2018-11-20 - Holiday
+- 2018-11-22 - Holiday
+- [2018-11-27](http://albertcervantes.com/cs3220/lectures/cs3220-2018-11-27-ttr.mp4) Introduction to JSTL SQL
+- [2018-11-29](http://albertcervantes.com/cs3220/lectures/cs3220-2018-11-29-ttr.mp4) Custom Tags
