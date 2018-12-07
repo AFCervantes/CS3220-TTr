@@ -30,3 +30,4 @@
 - 2018-11-22 - Holiday
 - [2018-11-27](http://albertcervantes.com/cs3220/lectures/cs3220-2018-11-27-ttr.mp4) Introduction to JSTL SQL
 - [2018-11-29](http://albertcervantes.com/cs3220/lectures/cs3220-2018-11-29-ttr.mp4) Custom Tags
+- [2018-12-04](http://albertcervantes.com/cs3220/lectures/cs3220-2018-12-04-ttr.mp4) Semester Review, Design Problem, Practice Final
