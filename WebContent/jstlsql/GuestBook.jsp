@@ -11,6 +11,7 @@
 	password="" />
 
 
+
 <%-- query --%>
 <sql:query var="entries">
 	select * from guestbook

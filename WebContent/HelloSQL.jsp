@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 
@@ -8,7 +7,7 @@
 	driver="com.mysql.jdbc.Driver"
 	url="jdbc:mysql://cs3.calstatela.edu/cs3220stu120"
 	user="cs3220stu120"
-	password=																																						"z7CyfCdc"/>
+	password="" />
 
 <%-- query --%>
 <sql:query var="items" sql="SELECT * FROM items"/>
@@ -26,7 +25,8 @@
   <c:forEach items="${items.rows}" var="row">
     <c:forEach items="${row}" var="col">
       <tr>
-        <td>${col.key}</td><td>${col.value}</td>
+        <td>${col.key}</td>
+        <td>${col.value}</td>
       </tr>
     </c:forEach>
     <tr>

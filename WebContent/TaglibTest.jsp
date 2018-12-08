@@ -13,19 +13,17 @@
 <body>
 
 <p>This is the result of the AddTag:
-	<cs3220:add op1="10" op2="20" />
+	<cs3220:add op1="${param.num1}" op2="${param.num2}" />
 </p>
-
-
 
 <p>
 	This is the requestInfo tag:
 
 	<cs3220:requestInfo type="method" />, 
-	<cs3220:requestInfo type="client" />.
-
+	<cs3220:requestInfo type="client" />.<br />
+	<cs3220:requestInfo type="uri" /> <br />
+	<cs3220:requestInfo type="isGzipSupported" />
 </p>
-
 
 <p>
 	This is the cap tag:
@@ -35,9 +33,8 @@
 
 <p>
 	This is the tag file:
-	<cs3220:greeting name="Albert">Hi</cs3220:greeting>
+	<cs3220:greeting name="Albert">Hello</cs3220:greeting>
 </p>
-
 
 <p>
 	This is the EL function:
